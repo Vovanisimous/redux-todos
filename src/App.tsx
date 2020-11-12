@@ -4,7 +4,7 @@ import TodosContainer from "./components/TodosContainer";
 function App() {
   return (
     <div>
-        Todos
+        <h1 className={"title"}>Todos</h1>
       <TodosContainer />
     </div>
   );

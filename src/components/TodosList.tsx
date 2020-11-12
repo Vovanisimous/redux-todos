@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
 import { deleteTodo, toggleCompleted } from "../store/actions";
 import { ITodosState } from "../store/types";
+import "../App.scss"
 
 const TodosList = ({
     todos,
@@ -48,11 +49,11 @@ const TodosList = ({
         <div>
             {list().map((todo: { todo: string; completed: boolean }) => (
                 <div key={todo.todo}>
-                    <button onClick={() => onToggleCompleted(todo.todo)}>
+                    <button onClick={() => onToggleCompleted(todo.todo)} className={"complete-button"}>
                         {todo.completed ? "completed" : "uncompleted"}{" "}
                     </button>
                     {todo.todo}
-                    <button onClick={() => onDeleteTodo(todo.todo)}>Delete</button>
+                    <button onClick={() => onDeleteTodo(todo.todo)} className={"delete-button"}>Delete</button>
                 </div>
             ))}
         </div>
