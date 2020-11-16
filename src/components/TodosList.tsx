@@ -1,22 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect, useDispatch } from "react-redux";
 import { deleteTodo, toggleCompleted } from "../store/actions";
 import { ITodosState } from "../store/types";
-import "../App.scss"
+import "../App.scss";
 
-const TodosList = ({
-    todos,
-    app,
-}: {
-    app: { show: "all" | "active" | "completed" };
-    todos: { todo: string; completed: boolean }[];
-}) => {
+type Props = ReturnType<typeof mapStateToProps>;
+
+const TodosList: React.FC<Props> = ({ todos, app }) => {
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log(todos);
-        console.log(app);
-    }, [todos, app]);
 
     const onDeleteTodo = (todo: string) => {
         dispatch(deleteTodo(todo));
@@ -27,35 +18,44 @@ const TodosList = ({
     };
 
     const list = () => {
-        let filteredTodos = [...todos]
+        let filteredTodos = [...todos];
         switch (app.show) {
             case "all": {
-                filteredTodos = [...todos]
+                filteredTodos = [...todos];
                 return filteredTodos;
             }
             case "active": {
-                filteredTodos = todos.filter((todo) => !todo.completed)
-                return filteredTodos
+                filteredTodos = todos.filter((todo) => !todo.completed);
+                return filteredTodos;
             }
             case "completed": {
-                filteredTodos = todos.filter((todo) => todo.completed)
-                return filteredTodos
+                filteredTodos = todos.filter((todo) => todo.completed);
+                return filteredTodos;
             }
-            default: return filteredTodos
+            default:
+                return filteredTodos;
         }
-    }
+    };
 
     return (
-        <div>
-            {list().map((todo: { todo: string; completed: boolean }) => (
-                <div key={todo.todo}>
-                    <button onClick={() => onToggleCompleted(todo.todo)} className={"complete-button"}>
-                        {todo.completed ? "completed" : "uncompleted"}{" "}
-                    </button>
-                    {todo.todo}
-                    <button onClick={() => onDeleteTodo(todo.todo)} className={"delete-button"}>Delete</button>
-                </div>
-            ))}
+        <div className={"todos-list"}>
+            {list().map(
+                (todo: { todo: string; completed: boolean; creationDate: string }, index) => (
+                    <div key={index}>
+                        <button
+                            onClick={() => onToggleCompleted(todo.todo)}
+                            className={"complete-button"}
+                        >
+                            {todo.completed ? "completed" : "uncompleted"}{" "}
+                        </button>
+                        {todo.todo}
+                        <span>{todo.creationDate}</span>
+                        <button onClick={() => onDeleteTodo(todo.todo)} className={"delete-button"}>
+                            Delete
+                        </button>
+                    </div>
+                ),
+            )}
         </div>
     );
 };

@@ -5,7 +5,8 @@ export function createTodo(todoTitle: string) {
       type: CREATE_TODO,
       payload: {
          todo: todoTitle,
-         completed: false 
+         completed: false,
+         creationDate: new Date().toISOString(),
       }
    }
 }

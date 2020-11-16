@@ -11,15 +11,11 @@ export interface ITodosState {
    }
 }
 
-export type TAction<T> = {
-   type: string,
-   payload?: T
-}
-
 export interface ITodos {
    todos: {
       todo: string,
       completed: boolean,
+      creationDate: string
    }[]
 }
 
@@ -27,7 +23,8 @@ interface CreateTodoAction {
    type: typeof CREATE_TODO,
    payload: {
       todo: string,
-      completed: boolean
+      completed: boolean,
+      creationDate: string
    }
 }
 

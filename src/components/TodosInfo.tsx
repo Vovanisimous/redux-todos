@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import { connect, useDispatch } from "react-redux";
 
-import { ITodos, ITodosState } from '../store/types';
+import { ITodosState } from '../store/types';
 import {toggleShowState} from "../store/actions";
+import "../App.scss"
 
-const TodosInfo = ({todos}: ITodos) => {
+type Props = ReturnType<typeof mapStateToProps>
+
+const TodosInfo: React.FC<Props> = ({todos}) => {
    const [todosCount, setTodosCount ] = useState(0)
    const dispatch = useDispatch()
 
@@ -17,7 +20,7 @@ const TodosInfo = ({todos}: ITodos) => {
    }, [todos])
 
    return (
-      <div>
+      <div className={"todos-info"}>
          <div>{todosCount} items left</div>
          <div>
             <button onClick={() => dispatch(toggleShowState("all"))}>All</button>

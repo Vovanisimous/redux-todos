@@ -24,7 +24,7 @@ export const todosReducer = (state: ITodos = initialState, action: TodosActionTy
             const a = { ...state };
             const b = a.todos.map((todo) =>
                 todo.todo === action.payload
-                    ? { todo: todo.todo, completed: todo.completed ? false : true }
+                    ? { todo: todo.todo, completed: !todo.completed }
                     : { todo: todo.todo, completed: todo.completed },
             );
             return {
